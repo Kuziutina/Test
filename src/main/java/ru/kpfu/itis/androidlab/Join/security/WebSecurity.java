@@ -50,10 +50,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
         http.cors().and().csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/user/2/upload").permitAll()
                 .antMatchers("/login*").permitAll()
                 .antMatchers("/login/*").permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/registration/*").permitAll()
+                .antMatchers("/recovery").permitAll()
+                .antMatchers("/recovery/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

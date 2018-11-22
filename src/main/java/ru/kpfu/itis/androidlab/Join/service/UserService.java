@@ -31,7 +31,7 @@ public class UserService implements UserServiceInt {
 
     @Override
     public ResponseForm registerUser(RegistrationForm registrationDto) {
-        User user = User.builder().name(registrationDto.getUsername())
+        User user = User.builder().username(registrationDto.getUsername())
                                 .email(registrationDto.getEmail())
                                 .password(passwordEncoder.encode(registrationDto.getPassword()))
                                 .build();
@@ -84,6 +84,21 @@ public class UserService implements UserServiceInt {
 
         userRepository.save(user);
         return ResultForm.builder().code(200).build();
+    }
+
+    @Override
+    public void changeUserPassword(ChangePasswordForm changePasswordForm) {
+        User user = getUserByEmail(changePasswordForm.getEmail());
+        user.setPassword(passwordEncoder.encode(changePasswordForm.getPassword()));
+        userRepository.save(user);
+    }
+
+    @Override
+    public void addProfileImage(String url, Long id) {
+        User user = getUser(id);
+        user.setProfileImageLink(url);
+
+        userRepository.save(user);
     }
 
 
