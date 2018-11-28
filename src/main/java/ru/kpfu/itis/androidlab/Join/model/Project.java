@@ -20,6 +20,10 @@ public class Project {
 
     private String description;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "leader", referencedColumnName = "id")
+    private User leader;
+
     @OneToMany(mappedBy = "project")
     private List<Specialization> vacancies;
 

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.kpfu.itis.androidlab.Join.dto.SimpleProjectDto;
 import ru.kpfu.itis.androidlab.Join.dto.UserDto;
 import ru.kpfu.itis.androidlab.Join.form.ProfileForm;
 import ru.kpfu.itis.androidlab.Join.form.ResponseForm;
@@ -15,6 +16,7 @@ import ru.kpfu.itis.androidlab.Join.form.ResultForm;
 import ru.kpfu.itis.androidlab.Join.form.SpecializationForm;
 import ru.kpfu.itis.androidlab.Join.model.User;
 import ru.kpfu.itis.androidlab.Join.repository.UserRepository;
+import ru.kpfu.itis.androidlab.Join.service.interfaces.ProjectServiceInt;
 import ru.kpfu.itis.androidlab.Join.service.interfaces.SpecializationServiceInt;
 import ru.kpfu.itis.androidlab.Join.service.interfaces.UserServiceInt;
 
@@ -27,11 +29,14 @@ import java.util.Map;
 public class UserController extends MainController{
     private UserServiceInt userService;
     private SpecializationServiceInt specializationService;
+    private ProjectServiceInt projectService;
 
     public UserController(UserServiceInt userService,
-                          SpecializationServiceInt specializationService) {
+                          SpecializationServiceInt specializationService,
+                          ProjectServiceInt projectService) {
         this.userService = userService;
         this.specializationService = specializationService;
+        this.projectService = projectService;
     }
 
     @GetMapping(value = "/{id}")
@@ -98,6 +103,14 @@ public class UserController extends MainController{
         }
 
         return ResponseEntity.ok().build();
+    }
+
+
+    @GetMapping(value = "/{id}/projects")
+    public ResponseEntity userProject(@PathVariable Long id) {
+        List<SimpleProjectDto> projects = projectService.getUserProjectDtos(id);
+
+        return ResponseEntity.ok(projects);
     }
 
 }

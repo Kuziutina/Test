@@ -77,7 +77,7 @@ public class UserService implements UserServiceInt {
             return ResultForm.builder().code(400).error("Invalid email").build();
         }
         user.setName(profileForm.getName());
-        user.setLastName(profileForm.getLastName());
+        user.setLastName(profileForm.getLastname());
         user.setUsername(profileForm.getUsername());
         user.setEmail(profileForm.getEmail());
         user.setPhone(profileForm.getPhoneNumber());

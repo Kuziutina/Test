@@ -42,9 +42,11 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Notification> notifications;
 
-
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Specialization> specializations;
+
+    @OneToMany(mappedBy = "leader", fetch = FetchType.LAZY)
+    private List<Project> leaderProjects;
 
 
 }
